@@ -1,0 +1,16 @@
+java외 이것저것 설명 좀 잘되어있는 블로그 :  https://yaboong.github.io/tags/#java 
+
+코딩갤 : https://okky.kr/ 
+
+java 코드가 뭐하는지 알려주는 곳(올 영어임) : https://docs.oracle.com/javase/8/docs/api/index.html
+
+java 라이브러리 : https://mvnrepository.com/
+
+IBM 명령어 : https://www.ibm.com/docs/ko/aix/7.2?topic=l-ls-command
+-> cmd, git Bash 등..?
+
+javafx GUI 블로그 : https://pearlcrum.tistory.com/entry/JavaFX-GUI%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C
+
+리눅스 명령어 블로그 : https://www.ibm.com/docs/ko/aix/7.2?topic=l-ls-command
+https://lyrical-digestion-67d.notion.site/Linux-266387daa1044d87b92d82e947d6efe9
+

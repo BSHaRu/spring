@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias type="net.koreate.mvc.board.vo.BoardVO" alias="board"/>
+ 		<typeAlias type="net.koreate.mvc.sboard.vo.SearchBoardVO" alias="sboard"/>
+ 		<typeAlias type="net.koreate.mvc.common.util.SearchCriteria" alias="cri"/>
+ 	</typeAliases>
+ </configuration>
+ 
+ 
+ 
+ 

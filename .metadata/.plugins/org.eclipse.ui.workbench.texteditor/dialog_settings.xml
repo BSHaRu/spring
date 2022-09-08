@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="submit"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="submit"/>
+			<item value="boolEmailCode"/>
+			<item value="boolSMS"/>
+			<item value="custom"/>
+			<item value="text"/>
+			<item value="coustom"/>
+			<item value="table_tr"/>
+			<item value="tr"/>
+			<item value=".box"/>
+			<item value="제목"/>
+			<item value="재목"/>
+			<item value="title"/>
+			<item value="id=&quot;origin"/>
+			<item value="id=&quot;ni"/>
+			<item value="id=&quot;member"/>
+		</list>
+		<list key="replacehistory">
+			<item value="point"/>
+			<item value="debug"/>
+			<item value="ROLE_ADMIN"/>
+			<item value="mt-3"/>
+			<item value="fafafa"/>
+			<item value="membership-box"/>
+			<item value="card"/>
+			<item value=".code"/>
+			<item value="nice-selecttt"/>
+			<item value="reserve"/>
+			<item value="${path}/resources/img/"/>
+			<item value="${path}/resources/img/hero/hero-1"/>
+			<item value="img/hero/hero-1"/>
+			<item value="path"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="934"/>
+		<item key="DIALOG_Y_ORIGIN" value="318"/>
+		<item key="DIALOG_WIDTH" value="288"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.jst.jsp.ui.internal.preferences.ui.JSPTemplatePreferencePage$JSPEditTemplateDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="39"/>
+		<item key="DIALOG_Y_ORIGIN" value="59"/>
+		<item key="DIALOG_WIDTH" value="855"/>
+		<item key="DIALOG_HEIGHT" value="542"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

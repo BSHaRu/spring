@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;Product_Software_Packaging_question&apos;&#x0D;&#x0A;- Original project: &apos;Product_Software_Packaging_question&apos;&#x0D;&#x0A;- Original element: &apos;interceptor-context.xml&apos;" description="Delete element" element1="src/main/resources/context/interceptor-context.xml" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1661478292698" subPackages="false" version="1.0"/>
+</session>

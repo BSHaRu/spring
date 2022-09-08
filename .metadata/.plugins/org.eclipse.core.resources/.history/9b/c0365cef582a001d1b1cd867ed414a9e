@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- views/chat.jsp -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
+<style>
+	.chatBox{
+		height:200px;
+		overflow-y:scroll;
+		border:1px solid #ccc;
+		border-radius:5px;
+	}
+</style>
+
+<!-- sock.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+<div class="container">
+	<h1>Chat Page -</h1>
+	<div class="container chatBox" id="data">
+		
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-10">
+			<input type="text" class="form-control" id="message" />
+		</div>
+		<div class="col-md-2">
+			<input type="button" id="sendBtn" class="form-control btn btn-primary" value="SEND" />
+		</div>
+	</div>
+</div>
+
+<script>
+	var sock = new SockJS("chtHandler"); // url을 넣어 줘야됨(root에서 path로 지정한 이름)
+	// 서버와 연결이 성사 되었을 때
+	sock.onopen = function(){
+		console.log("연결 완료");
+		sock.send("연결 됨");
+	}
+</script>
+
+</body>
+</html>

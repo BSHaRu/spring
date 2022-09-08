@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis/sboardMapper.xml -->
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.koreate.sboard.dao.SearchBoardDAO">
+	
+	<!-- int create(SerchBoardVO vo) -->
+	<insert id="create" parameterType="net.koreate.sboard.vo.SearchBoardVO">
+		INSERT INTO tbl_board(title, content, writer)
+		VALUES(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- 해당 조건문 반복해서 쓰기 위해서 sql태그로 감싸서 씀 -->
+	<sql id="search">
+		<!-- mybatis에서 jstl하고 헷갈리지 말라고 이름만 똑같이 만든거지 jstl이 아님 -->
+		<if test='searchType != null and !searchType.equals("") and searchType != "n" '>
+			<choose>
+				<when test='searchType == "tc"'>
+				<!-- CONCAT : 문자열 이어주기 위해 쓰는친구 | Like : 해당 문자열 있으면 검색 | % == * -->
+					WHERE title LIKE CONCAT('%',#{keyword},'%')
+					OR content LIKE CONCAT('%',#{keyword},'%')
+				</when>
+				<when test='searchType == "tcw"'>
+					WHERE title LIKE CONCAT('%',#{keyword},'%')
+					OR content LIKE CONCAT('%',#{keyword},'%')
+					OR writer LIKE CONCAT('%',#{keyword},'%')
+				</when>		
+				<otherwise>
+				<!-- 나머지는 searchType과 검색하고자하는 열이 같으니깐 이렇게 표현 해줄 수 있음 -->
+				<!-- ${}로 하는 이유는 #{}을 하면 WHERE 'searchType'이 되니깐  문법적 오류다 -->
+				<!-- -> ${}를 하게되면 해당 문자열을 미리 만들어줘서? WHERE searchType가 된다고함  -->
+				<!-- => 쉽게 말해 #{}은 해당 문자열을 ''로 감싸는데 ${}은 ''로 안 감싼다 -->
+					WHERE ${searchType} LIKE CONCAT('%',#{keyword},'%')
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+	<!-- List<SearchBoardVO> serchList(SearchCriteria cri) -->
+	<select id="serchList" parameterType="searchCriteria"
+			resultType="searchBoardVO">
+		SELECT * FROM tbl_board
+		<include refid="search" />
+		ORDER BY bno DESC 
+		limit #{startRow}, #{perPageNum}
+	</select>
+	
+	<!-- int searchListCount(SearchCriteria cri) -->
+	<select id = "searchListCount" parameterType="searchCriteria"
+			resultType="int">
+		SELECT count(*) FROM tbl_board
+		<include refid="search" />
+	</select>
+	
+	<!-- SearchBoardVO read(int bno) -->
+	<select id="read" parameterType="int"
+			resultType="searchBoardVO">
+		SELECT * FROM tbl_board WHERE bno = #{bno}
+	</select>
+	
+	<!-- int update(SearchBoardVO vo) -->
+	<update id="update" parameterType="searchBoardVO">
+		UPDATE tbl_board SET
+		title = #{title},
+		content = #{content},
+		writer = #{writer}
+		WHERE bno = #{bno}	
+	</update>	
+	
+	<!-- int remove(int bno) -->
+	<delete id="remove" parameterType="int">
+		DELETE FROM tbl_board WHERE bno = #{bno}
+	</delete>
+	
+	<!-- void updateViewCnt(int bno) -->
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE tbl_board SET viewcnt = viewcnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	
+</mapper>

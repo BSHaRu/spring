@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;manager&apos; to &apos;WEB-INF&apos;&#x0D;&#x0A;- Original project: &apos;pj_sun&apos;&#x0D;&#x0A;- Destination element: &apos;WEB-INF&apos;&#x0D;&#x0A;- Original element: &apos;manager&apos;" description="Copy folder" element1="src/main/webapp/WEB-INF/views/manager" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1660459173820" target="/pj_library/src/main/webapp/WEB-INF" units="0" version="1.0"/>
+</session>

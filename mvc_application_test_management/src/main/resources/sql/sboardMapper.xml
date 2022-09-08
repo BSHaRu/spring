@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.koreate.mvc.sboard.dao.SearchBoardDAO">
+	
+	<insert id="create" parameterType="sboard">
+		INSERT INTO test_sboard(title,content,writer) 
+		VALUES(#{title},#{content},#{writer})
+	</insert>
+	
+	<select id="read" parameterType="int" resultType="sboard">
+		SELECT * FROM test_sboard WHERE bno = #{bno}
+	</select>
+	
+	<update id="update" parameterType="sboard">
+		UPDATE test_sboard SET 
+		title = #{title} , 
+		content = #{content} , 
+		writer = #{writer} ,
+		updatedate = now() 
+		WHERE bno = #{bno} 
+	</update>
+	
+	<delete id="remove" parameterType="int">
+		DELETE FROM test_sboard WHERE bno = #{bno}
+	</delete>
+	
+	 <sql id="search">
+	 	<if test="searchType != null">
+	 		<if test="searchType == 't'.toString()">
+	 			WHERE title like CONCAT('%',#{keyword},'%')
+	 		</if>
+	 		<if test="searchType == 'c'.toString()">
+	 			WHERE content like CONCAT('%',#{keyword},'%')
+	 		</if>
+	 		<if test="searchType == 'w'.toString()">
+	 			WHERE writer like CONCAT('%',#{keyword},'%')
+	 		</if>
+	 		<if test="searchType == 'tc'.toString()">
+	 			WHERE title like CONCAT('%',#{keyword},'%') 
+	 			OR content like  CONCAT('%',#{keyword},'%')
+	 		</if>
+	 		<if test="searchType == 'cw'.toString()">
+	 			WHERE content like CONCAT('%',#{keyword},'%') 
+	 			OR writer like  CONCAT('%',#{keyword},'%')
+	 		</if>
+	 		<if test="searchType == 'tcw'.toString()">
+	 			WHERE title like CONCAT('%',#{keyword},'%') 
+	 			OR content like  CONCAT('%',#{keyword},'%') 
+	 			OR writer like  CONCAT('%',#{keyword},'%') 
+	 		</if>
+	 	</if>
+	 </sql>
+	 
+	 
+	 <select id="searchListCount" parameterType="cri" resultType="int">
+	 	SELECT count(*) FROM test_sboard 
+	 	<include refid="search"></include>
+	 </select>
+	 
+	 <select id="searchList" parameterType="cri" resultType="sboard">
+		 SELECT * FROM test_sboard 
+		 <include refid="search"/>	 
+		 ORDER BY bno DESC 
+		 limit #{pageStart} , #{perPageNum}
+	 
+	 </select>
+	 
+	 <update id="updateViewCnt" parameterType="int">
+	 	UPDATE test_sboard SET viewcnt = viewcnt + 1 
+	 	WHERE bno = #{bno}
+	 </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

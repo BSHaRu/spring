@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.koreate.notice.dao.NoticeDAO">
+
+	<select id="getList" parameterType="criteria" resultType="noticeBoard">
+		SELECT * FROM notice_board ORDER BY notice_num DESC limit #{startRow}, #{perPageNum}	
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT count(*) FROM notice_board
+	</select>
+	
+	<!-- NoticeBoard read(int notice_num); -->
+	<select id="read" parameterType="int"
+			resultType="noticeBoard">
+		SELECT * FROM notice_board WHERE notice_num = #{notice_num}
+	</select>
+	
+	<insert id="write" parameterType="noticeBoard">
+		INSERT INTO notice_board (notice_category,notice_author,notice_title,notice_content) 
+		VALUES(#{notice_category},#{notice_author},#{notice_title},#{notice_content})
+	</insert>
+	
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE notice_board SET 
+		notice_cnt = notice_cnt + 1 
+		WHERE notice_num = #{notice_num}
+	</update>
+	
+	<update id="update" parameterType="noticeBoard">
+			UPDATE notice_board SET
+			notice_category = #{notice_category}, 
+			notice_author = #{notice_author}, 
+			notice_title = #{notice_title},
+			notice_content = #{notice_content}
+			WHERE notice_num = #{notice_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice_board WHERE notice_num = #{notice_num}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

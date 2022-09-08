@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="loginSuccessHandler"
+	 	class="net.koreate.sec.security.LoginSuccessHandler"/>
+	
+	<bean id="accessDeniedHandler"
+		class="net.koreate.sec.security.CustomAccessDeniedHandler" />
+	
+	<!-- 해당 패턴에서는 security 사용 안하겠다 -->
+	<security:http pattern="/resources/**" security="none" />
+	
+	<security:http>
+	
+		<security:form-login 
+				login-page="/user/login"
+				username-parameter="u_id"
+				password-parameter="u_pw" 
+				login-processing-url="/user/login" 
+				authentication-success-handler-ref="loginSuccessHandler" />
+		
+		<!-- 기본 파라미터 name은 remember-me -->
+		<security:remember-me
+				remember-me-cookie="userCookie"
+				remember-me-parameter="rememberme" 
+				token-validity-seconds="604800" />
+				
+		<!-- 중복 로그인 -->
+		<security:session-management>
+			<security:concurrency-control
+				error-if-maximum-exceeded="false" 
+				max-sessions="1" 
+				expired-url="/logOff"/>
+		</security:session-management>
+		
+		<!-- 403 권한 불충분 사용자 핸들러 등록 accessDeniedHandler -->
+		<security:access-denied-handler
+				ref="accessDeniedHandler"/>
+		
+		<!-- 로그아웃 처리 -->
+		<security:logout 
+				logout-url="/user/logout"
+				logout-success-url="/"
+				delete-cookies="userCookie"/>
+		<!-- /user로 접근하는 url은 누구나 접근가능하게 해줌 -->
+		<!-- 인터셉터는 위에서부터 아래로 실행되기 때문에 서순 엄청 중요!!
+		 -> 좁은 범위를 먼저, 넓은 범위가 아래로 지정하는게 보통 서순임 -->
+		<security:intercept-url
+				pattern="/mngt/user/**"
+				access="hasRole('ROLE_ADMIN')"/> 
+		<security:intercept-url
+				pattern="/mngt/**"
+				access="hasAnyRole('ROLE_MEMBERSHIP','ROLE_ADMIN')"/>
+		<security:intercept-url 
+				pattern="/user/logout"
+				access="authenticated"/>
+		<security:intercept-url 
+				pattern="/user/**"
+				access="permitAll"/>
+		<security:intercept-url 
+				pattern="/logOff"
+				access="permitAll"/>		
+		<security:intercept-url 
+				pattern="/"
+				access="permitAll"/>
+		<security:intercept-url 
+				pattern="/**" 
+				access="authenticated"/>
+		
+	</security:http>
+	
+	<bean id="customUsersDetail"
+		class="net.koreate.sec.security.user.CustomUserDetailsService"/>
+	<!-- 암호화 하지 않음 -> 권장하지 않음 -->
+	<!-- <bean class="org.springframework.security.crypto.password.NoOpPasswordEncoder" /> -->
+	
+	<!-- sha-256 암호화 방식 사용 -> 권장하지 않음 -->
+	<!-- <bean class="org.springframework.security.crypto.password.StandardPasswordEncoder" /> -->
+	
+	<!-- scrypt 해쉬 알고리즘(소수) 이용한 암호화 방식 -> 현재 security는 이방식으로 암호화 하는걸 권장 -->	
+	<bean id="bcriptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<security:authentication-manager>
+		<security:authentication-provider
+			user-service-ref="customUsersDetail">
+			<security:password-encoder ref="bcriptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

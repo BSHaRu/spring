@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- src/main/resources/MybatisConfig.xml -->
+<!-- 기본적인 mybatis 설정 -->
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- type에 있는걸 alias의 이름으로 쓰겠다 -->
+		<typeAlias alias="member" type="net.koreate.db_test.vo.MemberVO" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="sql/memberMapper.xml" />
+	</mappers>
+</configuration>

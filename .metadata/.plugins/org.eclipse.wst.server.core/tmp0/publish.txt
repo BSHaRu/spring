@@ -1,0 +1,6 @@
+#Tomcat publish data
+#Sun Aug 14 13:53:09 KST 2022
+org.eclipse.jst.jee.server\:mvc_part14_use_member=C\:\\Users\\121\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part14_use_member
+org.eclipse.jst.jee.server\:pj_library=C\:\\Users\\121\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\pj_library
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\121\\.m2\\repository\\org\\springframework\\spring-web\\5.3.21\\spring-web-5.3.21.jar=C\:\\Users\\121\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\pj_library\\WEB-INF\\lib\\spring-web-5.3.21.jar
+org.eclipse.jst.jee.server\:mvc_part03_di_ioc=C\:\\Users\\121\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part03_di_ioc

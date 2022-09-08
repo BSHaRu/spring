@@ -1,0 +1,7 @@
+package net.koreate.sec.util;
+
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+public class ChatHandler extends TextWebSocketHandler {
+
+}

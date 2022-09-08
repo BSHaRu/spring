@@ -1,0 +1,11 @@
+mail.host=smtp.gmail.com
+mail.port=587
+mail.username=show5901@gmail.com
+mail.password=ptxkxlzaktbxahbt
+
+mail.properties.mail.smtp.auth=true
+mail.properties.mail.smtp.starttls.enable=true
+
+mail.transport.protocol=smtp
+mail.debug=true
+mail.default.encoding=UTF-8

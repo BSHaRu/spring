@@ -1,0 +1,33 @@
+package net.koreate.sec.util;
+
+import java.util.Hashtable;
+import java.util.Map;
+
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+public class ChatHandler extends TextWebSocketHandler {
+
+	// session 정보 | 사용자 id
+	private Map<WebSocketSession, String> sessionMap = new Hashtable<>();
+	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("연결 완료 : " + session.getId());
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("연결 종료 : " + session.getId());
+	}
+
+	
+	
+}

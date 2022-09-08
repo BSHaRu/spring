@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DataSource / 이게 conn되면 close까지 해주는 친구임 -->
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/spring_data" />
+		<property name="username" value="spring" />
+		<property name="password" value="12345" />
+	</bean>
+	
+	<!-- sqlSession 관리해주는 친구 -->
+	<bean id="sqlSessionFactioy"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- ref : 참조할때 씀 -> 위에 dataSource를 만들어놨기때문에 ref="ds"하는거 -->
+		<property name="dataSource" ref="ds" />
+									<!-- classpath : src/main/resources 즉, 설정 파일 위치  -->
+		<property name="configLocation" value="classpath:/MybatisConfig.xml"/>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactioy" />
+	</bean>
+	
+	<context:component-scan base-package="net.koreate.db_test.dao" />
+</beans>

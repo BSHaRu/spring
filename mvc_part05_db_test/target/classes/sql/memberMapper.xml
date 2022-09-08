@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- src/main/resources/sql/memberMapper.xml -->
+<!-- sql 질의문 작성 -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.koreate.mapper.MemberMapper">
+	<!-- id : 질의 구분하는 값 -->
+	<insert id="insertMember"
+		parameterType="net.koreate.db_test.vo.MemberVO">
+		INSERT INTO tbl_member
+		VALUES(#{userid},#{userpw},#{username},now(),now())
+		<!-- #{} : pstmt.set뭐시깽이랑 같은거임 | ${} : stmt -->
+	</insert>
+	
+	<!-- resultType="net.koreate.db_test.vo.MemberVO" -->
+	<select id="readMember" parameterType="String"
+			resultType="member">
+		SELECT * FROM tbl_member WHERE userid = #{userid}
+	</select>
+	
+	<!-- parameterType="java.util.Map" 자주사용되서 "Map"으로 쓸 수 있음 -->
+	<select id="readWithPass" parameterType="Map"
+		resultType="member">
+		SELECT * FROM tbl_member
+		WHERE userid = #{id} AND userpw = #{pw}
+	</select>
+	
+	<select id="memberList" resultType="member">
+		SELECT * FROM tbl_member
+		ORDER by regdate DESC
+	</select>
+</mapper>

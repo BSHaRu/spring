@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- prop파일 읽어오는 친구 -> prop의 key값으로 value읽기 위해서 사용 -->
+	<context:property-placeholder location="classpath:prop/*.properties"/> 
+	
+	<!-- DataSource -->
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- mybatis 설정 -->
+	<bean id="factory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<!-- 이거 지정하면 해당 패키지안에 있는 클래스를 첫글자만 소문자로 해서 바로 사용할 수 있음  -->
+		<!-- -> MybatisConfig 파일 따로 생성안해도 됨 -->
+		<property name="typeAliasesPackage" value="net.koreate.board.vo, net.koreate.board.util" />
+		<property name="mapperLocations" value="classpath:mybatis/sql/*.xml" />
+	</bean>
+	
+	<!-- sqlSession 설정 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<!-- 생성자 매개변수가 필요해서 ref로 factory 참조함 -->
+		<constructor-arg ref="factory"/>
+	</bean>
+	
+	<!-- 해당 dao를 보고 알아서 구현객체를 만듬 -->
+	<!-- 이렇게 만들면 DAO가 여러개일때 좀 그러니깐 그거 해결 하려면 scanner를 쓰면 된다.
+		<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.koreate.board.dao.BoardDAO" />
+		<property name="sqlSessionFactory" ref="factory" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>	
+	 -->
+	 
+	<!-- Namespaces에 mybatis 체크하면 아래처럼 간단하게 해당 패키지만 지정하면 된다.
+		-> 해당 인터페이스를 알아서 해줌
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+     	<property name="basePackage" value="net.koreate.board.dao"/>
+     </bean>
+	 -->
+	 
+	 <mybatis-spring:scan base-package="net.koreate.board.dao" />
+	 
+	 <bean class="net.koreate.board.util.Calculator" 
+	 		scope="prototype" 
+	 		init-method="init"
+	 		destroy-method="destroy" />
+	 		
+	 
+</beans>

@@ -1,0 +1,40 @@
+package net.koreate.sec.util;
+
+import java.util.Hashtable;
+import java.util.Map;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+public class ChatHandler extends TextWebSocketHandler {
+
+	// Map : session 정보 | 사용자 id
+	// 전제 조건이 시큐리티 사용하는 가정하에 사용자 id를 가져오는거라
+	// 시큐리티를 이용하면 session에서 해당 정보를 바로 가져올 수 있고,
+	// 시큐리티 사용 안하면 다른방법으로 가져 와야됨
+	private Map<WebSocketSession, String> sessionMap = new Hashtable<>();
+	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("연결 완료 : " + session.getId());
+		String userName = session.getPrincipal().getName();
+		Authentication auth = (Authentication) session.getPrincipal();
+		
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("연결 종료 : " + session.getId());
+	}
+
+	
+	
+}
